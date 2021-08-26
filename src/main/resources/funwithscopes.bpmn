@@ -8,11 +8,11 @@
       <bpmn:incoming>Flow_09oif68</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:serviceTask id="Aeusserer_ServiceTask" name="Aeusserer_ServiceTask" camunda:asyncBefore="true" camunda:exclusive="false" camunda:class="de.neusta.workflow.ServiceTask">
-      <bpmn:incoming>Flow_0h29rqn</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1fp17al</bpmn:incoming>
       <bpmn:outgoing>Flow_1ji7qox</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1ji7qox" sourceRef="Aeusserer_ServiceTask" targetRef="SubProcess" />
-    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartEvent_1" targetRef="Incident" />
+    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartEvent_1" targetRef="Aeusserer_ServiceTask" />
     <bpmn:subProcess id="SubProcess" name="SubProcess345r">
       <bpmn:extensionElements>
         <camunda:inputOutput>
@@ -22,7 +22,7 @@
       <bpmn:incoming>Flow_1ji7qox</bpmn:incoming>
       <bpmn:outgoing>Flow_0bh2zif</bpmn:outgoing>
       <bpmn:multiInstanceLoopCharacteristics>
-        <bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">4</bpmn:loopCardinality>
+        <bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">1</bpmn:loopCardinality>
       </bpmn:multiInstanceLoopCharacteristics>
       <bpmn:startEvent id="Event_0ju34k1">
         <bpmn:outgoing>Flow_0xkuu1n</bpmn:outgoing>
@@ -54,10 +54,6 @@
         <bpmn:outgoing>Flow_0ftyvox</bpmn:outgoing>
       </bpmn:serviceTask>
       <bpmn:sequenceFlow id="Flow_0ftyvox" sourceRef="AfterExceptionTask" targetRef="Activity_0w5wh4y" />
-      <bpmn:boundaryEvent id="AfterExceptionTaskEvent" name="AfterExceptionTaskEvent" attachedToRef="ExceptionTask">
-        <bpmn:outgoing>Flow_0ezmhp3</bpmn:outgoing>
-        <bpmn:errorEventDefinition id="ErrorEventDefinition_02jobz3" errorRef="Error_0dhvhfx" />
-      </bpmn:boundaryEvent>
       <bpmn:sequenceFlow id="Flow_0ezmhp3" sourceRef="AfterExceptionTaskEvent" targetRef="AfterExceptionTask" />
       <bpmn:sequenceFlow id="Flow_0xkuu1n" sourceRef="Event_0ju34k1" targetRef="ExceptionTask" />
       <bpmn:sequenceFlow id="Flow_0t8b6cl" sourceRef="ExceptionTask" targetRef="Gateway_0k2q6lx" />
@@ -67,6 +63,10 @@
         <bpmn:incoming>Flow_0ftyvox</bpmn:incoming>
         <bpmn:outgoing>Flow_0hwi4ar</bpmn:outgoing>
       </bpmn:userTask>
+      <bpmn:boundaryEvent id="AfterExceptionTaskEvent" name="AfterExceptionTaskEvent" attachedToRef="ExceptionTask">
+        <bpmn:outgoing>Flow_0ezmhp3</bpmn:outgoing>
+        <bpmn:errorEventDefinition id="ErrorEventDefinition_155ja03" errorRef="Error_0dhvhfx" />
+      </bpmn:boundaryEvent>
     </bpmn:subProcess>
     <bpmn:sequenceFlow id="Flow_0bh2zif" sourceRef="SubProcess" targetRef="finisher_task" />
     <bpmn:sequenceFlow id="Flow_09oif68" sourceRef="finisher_task" targetRef="EndEvent_0x6ir2l" />
@@ -74,19 +74,10 @@
       <bpmn:incoming>Flow_0bh2zif</bpmn:incoming>
       <bpmn:outgoing>Flow_09oif68</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_0h29rqn" sourceRef="Incident" targetRef="Aeusserer_ServiceTask" />
-    <bpmn:serviceTask id="Incident" name="Incident" camunda:class="de.neusta.workflow.ExceptionTask">
-      <bpmn:incoming>SequenceFlow_1fp17al</bpmn:incoming>
-      <bpmn:outgoing>Flow_0h29rqn</bpmn:outgoing>
-    </bpmn:serviceTask>
   </bpmn:process>
-  <bpmn:error id="Error_0dhvhfx" name="RuntimeException" errorCode="java.lang.RuntimeException" />
+  <bpmn:error id="Error_0dhvhfx" name="CustomException" errorCode="de.neusta.workflow.CustomException" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="funwithscopes">
-      <bpmndi:BPMNEdge id="Flow_0h29rqn_di" bpmnElement="Flow_0h29rqn">
-        <di:waypoint x="360" y="177" />
-        <di:waypoint x="410" y="177" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_09oif68_di" bpmnElement="Flow_09oif68">
         <di:waypoint x="1680" y="177" />
         <di:waypoint x="1732" y="177" />
@@ -97,7 +88,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1fp17al_di" bpmnElement="SequenceFlow_1fp17al">
         <di:waypoint x="215" y="177" />
-        <di:waypoint x="260" y="177" />
+        <di:waypoint x="410" y="177" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ji7qox_di" bpmnElement="Flow_1ji7qox">
         <di:waypoint x="510" y="177" />
@@ -171,7 +162,7 @@
       <bpmndi:BPMNShape id="Activity_0ycodp2_di" bpmnElement="Activity_0w5wh4y">
         <dc:Bounds x="1000" y="440" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_08spyey_di" bpmnElement="AfterExceptionTaskEvent">
+      <bpmndi:BPMNShape id="Event_071vw67_di" bpmnElement="AfterExceptionTaskEvent">
         <dc:Bounds x="772" y="199" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="867" y="426" width="85" height="27" />
@@ -179,9 +170,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1tz8vsf_di" bpmnElement="finisher_task">
         <dc:Bounds x="1580" y="137" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_17y8nkw_di" bpmnElement="Incident">
-        <dc:Bounds x="260" y="137" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

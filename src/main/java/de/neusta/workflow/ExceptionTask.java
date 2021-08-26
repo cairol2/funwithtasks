@@ -12,7 +12,7 @@ public class ExceptionTask extends LogginTask implements JavaDelegate {
         log(delegateExecution, log);
 
         if ((Boolean) delegateExecution.getVariable("throwexception")) {
-            throw new RuntimeException();
+            throw new CustomException();
         }
     }
 }
