@@ -1,0 +1,12 @@
+### start workflow example
+POST http://localhost:1080/engine-rest/process-definition/key/funwithscopes/start
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+###
+
+GET http://localhost:1080/engine-rest/process-definition
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+###
