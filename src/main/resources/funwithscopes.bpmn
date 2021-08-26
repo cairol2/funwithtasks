@@ -44,8 +44,8 @@
         <bpmn:outgoing>Flow_0t8b6cl</bpmn:outgoing>
       </bpmn:serviceTask>
       <bpmn:exclusiveGateway id="Gateway_0k2q6lx">
-        <bpmn:incoming>Flow_0ftyvox</bpmn:incoming>
         <bpmn:incoming>Flow_0t8b6cl</bpmn:incoming>
+        <bpmn:incoming>Flow_0hwi4ar</bpmn:incoming>
         <bpmn:outgoing>Flow_0096uzj</bpmn:outgoing>
       </bpmn:exclusiveGateway>
       <bpmn:sequenceFlow id="Flow_0096uzj" sourceRef="Gateway_0k2q6lx" targetRef="Innerer_ServiceTask" />
@@ -53,7 +53,7 @@
         <bpmn:incoming>Flow_0ezmhp3</bpmn:incoming>
         <bpmn:outgoing>Flow_0ftyvox</bpmn:outgoing>
       </bpmn:serviceTask>
-      <bpmn:sequenceFlow id="Flow_0ftyvox" sourceRef="AfterExceptionTask" targetRef="Gateway_0k2q6lx" />
+      <bpmn:sequenceFlow id="Flow_0ftyvox" sourceRef="AfterExceptionTask" targetRef="Activity_0w5wh4y" />
       <bpmn:boundaryEvent id="AfterExceptionTaskEvent" name="AfterExceptionTaskEvent" attachedToRef="ExceptionTask">
         <bpmn:outgoing>Flow_0ezmhp3</bpmn:outgoing>
         <bpmn:errorEventDefinition id="ErrorEventDefinition_02jobz3" errorRef="Error_0dhvhfx" />
@@ -62,6 +62,11 @@
       <bpmn:sequenceFlow id="Flow_0xkuu1n" sourceRef="Event_0ju34k1" targetRef="ExceptionTask" />
       <bpmn:sequenceFlow id="Flow_0t8b6cl" sourceRef="ExceptionTask" targetRef="Gateway_0k2q6lx" />
       <bpmn:sequenceFlow id="Flow_15s516k" sourceRef="Innerer_ServiceTask" targetRef="Asynch_Task" />
+      <bpmn:sequenceFlow id="Flow_0hwi4ar" sourceRef="Activity_0w5wh4y" targetRef="Gateway_0k2q6lx" />
+      <bpmn:userTask id="Activity_0w5wh4y" name="UserTask">
+        <bpmn:incoming>Flow_0ftyvox</bpmn:incoming>
+        <bpmn:outgoing>Flow_0hwi4ar</bpmn:outgoing>
+      </bpmn:userTask>
     </bpmn:subProcess>
     <bpmn:sequenceFlow id="Flow_0bh2zif" sourceRef="SubProcess" targetRef="finisher_task" />
     <bpmn:sequenceFlow id="Flow_09oif68" sourceRef="finisher_task" targetRef="EndEvent_0x6ir2l" />
@@ -78,6 +83,10 @@
   <bpmn:error id="Error_0dhvhfx" name="RuntimeException" errorCode="java.lang.RuntimeException" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="funwithscopes">
+      <bpmndi:BPMNEdge id="Flow_0h29rqn_di" bpmnElement="Flow_0h29rqn">
+        <di:waypoint x="360" y="177" />
+        <di:waypoint x="410" y="177" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_09oif68_di" bpmnElement="Flow_09oif68">
         <di:waypoint x="1680" y="177" />
         <di:waypoint x="1732" y="177" />
@@ -94,10 +103,6 @@
         <di:waypoint x="510" y="177" />
         <di:waypoint x="580" y="177" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0h29rqn_di" bpmnElement="Flow_0h29rqn">
-        <di:waypoint x="360" y="177" />
-        <di:waypoint x="410" y="177" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="159" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -107,19 +112,16 @@
       <bpmndi:BPMNShape id="Activity_12nxueq_di" bpmnElement="Aeusserer_ServiceTask">
         <dc:Bounds x="410" y="137" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_17y8nkw_di" bpmnElement="Incident">
-        <dc:Bounds x="260" y="137" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1pggucc_di" bpmnElement="SubProcess" isExpanded="true">
         <dc:Bounds x="580" y="77" width="970" height="593" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_15s516k_di" bpmnElement="Flow_15s516k">
-        <di:waypoint x="1100" y="177" />
-        <di:waypoint x="1230" y="177" />
+        <di:waypoint x="1270" y="177" />
+        <di:waypoint x="1320" y="177" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0t8b6cl_di" bpmnElement="Flow_0t8b6cl">
         <di:waypoint x="840" y="177" />
-        <di:waypoint x="885" y="177" />
+        <di:waypoint x="1025" y="177" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0xkuu1n_di" bpmnElement="Flow_0xkuu1n">
         <di:waypoint x="638" y="177" />
@@ -127,20 +129,23 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ezmhp3_di" bpmnElement="Flow_0ezmhp3">
         <di:waypoint x="790" y="235" />
-        <di:waypoint x="790" y="298" />
-        <di:waypoint x="884" y="440" />
+        <di:waypoint x="790" y="440" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ftyvox_di" bpmnElement="Flow_0ftyvox">
-        <di:waypoint x="910" y="440" />
-        <di:waypoint x="910" y="202" />
+        <di:waypoint x="840" y="480" />
+        <di:waypoint x="1000" y="480" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0096uzj_di" bpmnElement="Flow_0096uzj">
-        <di:waypoint x="935" y="177" />
-        <di:waypoint x="1000" y="177" />
+        <di:waypoint x="1075" y="177" />
+        <di:waypoint x="1170" y="177" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1lwyg54_di" bpmnElement="Flow_1lwyg54">
-        <di:waypoint x="1330" y="177" />
+        <di:waypoint x="1420" y="177" />
         <di:waypoint x="1452" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hwi4ar_di" bpmnElement="Flow_0hwi4ar">
+        <di:waypoint x="1050" y="440" />
+        <di:waypoint x="1050" y="202" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_0ju34k1_di" bpmnElement="Event_0ju34k1">
         <dc:Bounds x="602" y="159" width="36" height="36" />
@@ -148,29 +153,35 @@
       <bpmndi:BPMNShape id="Event_1fn68b3_di" bpmnElement="Event_1fn68b3">
         <dc:Bounds x="1452" y="159" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1rsqvm2_di" bpmnElement="Innerer_ServiceTask">
-        <dc:Bounds x="1000" y="137" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0vf2y2w_di" bpmnElement="Asynch_Task">
-        <dc:Bounds x="1230" y="137" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_19u98k7_di" bpmnElement="ExceptionTask">
         <dc:Bounds x="740" y="137" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0k2q6lx_di" bpmnElement="Gateway_0k2q6lx" isMarkerVisible="true">
-        <dc:Bounds x="885" y="152" width="50" height="50" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1kef9vr_di" bpmnElement="AfterExceptionTask">
-        <dc:Bounds x="860" y="440" width="100" height="80" />
+        <dc:Bounds x="740" y="440" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vf2y2w_di" bpmnElement="Asynch_Task">
+        <dc:Bounds x="1320" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1rsqvm2_di" bpmnElement="Innerer_ServiceTask">
+        <dc:Bounds x="1170" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0k2q6lx_di" bpmnElement="Gateway_0k2q6lx" isMarkerVisible="true">
+        <dc:Bounds x="1025" y="152" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ycodp2_di" bpmnElement="Activity_0w5wh4y">
+        <dc:Bounds x="1000" y="440" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_08spyey_di" bpmnElement="AfterExceptionTaskEvent">
         <dc:Bounds x="772" y="199" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="818" y="203" width="85" height="27" />
+          <dc:Bounds x="867" y="426" width="85" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1tz8vsf_di" bpmnElement="finisher_task">
         <dc:Bounds x="1580" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_17y8nkw_di" bpmnElement="Incident">
+        <dc:Bounds x="260" y="137" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

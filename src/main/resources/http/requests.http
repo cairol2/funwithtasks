@@ -1,11 +1,20 @@
 ### start workflow example
-POST http://localhost:1080/engine-rest/process-definition/key/funwithscopes/start
+POST http://localhost:8080/engine-rest/process-definition/key/funwithscopes/start
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
+
+{"variables":
+{"aVariable" : {"value" : "aStringValue", "type": "String"},
+  "throwexception" : {"value" : true, "type": "Boolean"}},
+  "businessKey" : "myBusinessKey"
+}
+
+
+
 ###
 
-GET http://localhost:1080/engine-rest/process-definition
+GET http://localhost:8080/engine-rest/process-definition
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json

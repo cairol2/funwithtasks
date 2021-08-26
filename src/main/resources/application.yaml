@@ -5,4 +5,4 @@ camunda.bpm.admin-user:
   password: admin
 
 server:
-  port: 1080
+  port: 8080
